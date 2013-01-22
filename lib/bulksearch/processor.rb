@@ -67,12 +67,12 @@ class BulkSearch
           if row[index].to_s =~ /^\s*$/
             # Process using Bing.
             if providers.index(:bing)
-              puts "BING: #{terms} (#{options[:site]})"
+              puts "? #{terms} (#{options[:site]})"
               search = bing_client.web.containing(terms)
               search.from_site(options[:site]) unless options[:site].nil?
-              result = search.fetch.results.first
+              result = search.fetch.results[0..2].select {|result| URI.parse(result.url).path != '/' rescue false}.first
 
-              puts "  \\-> #{result.url}\n\n"
+              puts "#{result.url}\n\n"
               row[index] = result.url
             end
 
