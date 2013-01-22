@@ -47,8 +47,6 @@ class BulkSearch
       
       # Loop over the remaining rows and 
       sheet.each(1) do |row|
-        puts "ROW"
-        
         # Determine base options.
         options = {}
         headers.each_with_index do |header, index|
@@ -61,8 +59,6 @@ class BulkSearch
         # Perform searches on the rest of the columns.
         headers.each_with_index do |header, index|
           next unless header.index(/^[A-Z]+$/).nil?
-          
-          puts "COL: #{header}"
           
           # Combine search terms.
           terms = "#{options[:terms].to_s} #{header}"
